@@ -12,7 +12,7 @@ import android.view.MenuItem
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.zhoushibo.moonlight.bbc.BBCFragment
-import com.zhoushibo.moonlight.news.NewsFragment
+import com.zhoushibo.moonlight.news.view.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,9 +39,7 @@ class MainActivity : AppCompatActivity() {
                 .add("Tab4", BBCFragment::class.java, Bundler().get())
                 .create())
 
-
         viewPager.adapter = adapter
-
 
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->

@@ -1,6 +1,5 @@
 package com.zhoushibo.moonlight.data;
 
-import com.geocentric.foundation.net.ApiService;
 import com.geocentric.foundation.utils.LogUtil;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * @author shibo
@@ -20,7 +19,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 public class MoonTask {
 
-    public static ApiService getDefault(final boolean needToken) {
+    public static MoonApiService getDefault(final boolean needToken) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -39,15 +38,15 @@ public class MoonTask {
                     }
                 }).build();
         return new Retrofit.Builder()
-                .baseUrl("https://young-dawn-58847.herokuapp.com")
+                .baseUrl("https://cryptic-fortress-71485.herokuapp.com")
                 .addConverterFactory(new com.geocentric.foundation.net.FastJsonConvertFactory())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okClient)
-                .build().create(ApiService.class);
+                .build().create(MoonApiService.class);
 
     }
 
-    public static ApiService getExternal(String baseUrl) {
+    public static MoonApiService getExternal(String baseUrl) {
         OkHttpClient okClient = new OkHttpClient
                 .Builder()
                 .addInterceptor(new Interceptor() {
@@ -63,9 +62,9 @@ public class MoonTask {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(new com.geocentric.foundation.net.FastJsonConvertFactory())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okClient)
-                .build().create(ApiService.class);
+                .build().create(MoonApiService.class);
 
     }
 

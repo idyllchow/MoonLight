@@ -1,4 +1,4 @@
-package com.zhoushibo.moonlight.news;
+package com.zhoushibo.moonlight.news.view;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.geocentric.foundation.utils.LogUtil;
+import com.zhoushibo.moonlight.databinding.ItemNewsBinding;
+import com.zhoushibo.moonlight.news.model.NewsBean;
 
 /**
  * @author shibo
@@ -15,17 +18,23 @@ import com.android.databinding.library.baseAdapters.BR;
  */
 public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapter.MoonViewHolder> {
 
+    private final int layoutId;
+
+    public MoonBaseAdapter(int layoutId) {
+        this.layoutId = layoutId;
+    }
+
     @Override
     public MoonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
+//        ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
+        ItemNewsBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
         return new MoonViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(MoonViewHolder holder, int position) {
-        Object obj = getObjForPosition(position);
+        NewsBean obj = (NewsBean) getObjForPosition(position);
         holder.bind(obj);
     }
 
@@ -41,9 +50,10 @@ public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapt
             this.binding = binding;
         }
 
-        public void bind(Object obj) {
+        public void bind(NewsBean obj) {
             binding.setVariable(BR.obj, obj);
             binding.executePendingBindings();
+            LogUtil.defaultLog("========binding======");
         }
     }
 }
