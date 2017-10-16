@@ -24,7 +24,7 @@ public class NewsAdapter extends MoonBaseAdapter {
     private List<NewsBean> list = new ArrayList<>();
 
     public NewsAdapter(Context context, List<NewsBean> list) {
-        super(R.layout.item_news);
+        super(context, R.layout.item_news);
         this.mContext = context;
         this.list = list;
     }

@@ -41,7 +41,7 @@ public class NewsModel extends RecyclerViewViewModel implements Model{
         mRecyclerView.setLayoutManager(createLayoutManager());
         mRecyclerView.setAdapter(adapter);
 
-        Observable<List<NewsBean>> call = MoonTask.getDefault(false).getNews(1, 10);
+        Observable<List<NewsBean>> call = MoonTask.getDefault(false).getNews(0, 100);
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<NewsBean>>() {

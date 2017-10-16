@@ -3,6 +3,7 @@ package com.zhoushibo.moonlight.data;
 import com.geocentric.foundation.utils.LogUtil;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,6 +20,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  */
 public class MoonTask {
 
+    private static final int TIMEOUT_READ = 30;
+    private static final int TIMEOUT_WRITE = 30;
+
     public static MoonApiService getDefault(final boolean needToken) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -26,6 +30,8 @@ public class MoonTask {
         OkHttpClient okClient = new OkHttpClient
                 .Builder()
                 .addInterceptor(logging.setLevel(HttpLoggingInterceptor.Level.BODY))
+                .readTimeout(TIMEOUT_READ, TimeUnit.SECONDS)
+                .readTimeout(TIMEOUT_WRITE, TimeUnit.SECONDS)
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
@@ -65,7 +71,6 @@ public class MoonTask {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okClient)
                 .build().create(MoonApiService.class);
-
     }
 
 }

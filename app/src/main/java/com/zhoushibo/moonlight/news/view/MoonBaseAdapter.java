@@ -1,9 +1,12 @@
 package com.zhoushibo.moonlight.news.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -19,8 +22,10 @@ import com.zhoushibo.moonlight.news.model.NewsBean;
 public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapter.MoonViewHolder> {
 
     private final int layoutId;
+    private Context context;
 
-    public MoonBaseAdapter(int layoutId) {
+    public MoonBaseAdapter(Context context, int layoutId) {
+        this.context = context;
         this.layoutId = layoutId;
     }
 
@@ -34,8 +39,14 @@ public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapt
 
     @Override
     public void onBindViewHolder(MoonViewHolder holder, int position) {
-        NewsBean obj = (NewsBean) getObjForPosition(position);
+        final NewsBean obj = (NewsBean) getObjForPosition(position);
         holder.bind(obj);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, NewsContentActivity.class).putExtra("Bean", obj));
+            }
+        });
     }
 
     protected abstract Object getObjForPosition(int position);

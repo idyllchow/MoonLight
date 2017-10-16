@@ -42,5 +42,10 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
     compile 'com.zhoushibo:foundation:1.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    dependencies {
+        compile 'com.jakewharton:butterknife:8.8.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    }
+    compile 'com.github.clans:fab:1.6.4'
 }
 
