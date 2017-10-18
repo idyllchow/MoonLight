@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.android.databinding.library.baseAdapters.BR;
 import com.geocentric.foundation.utils.LogUtil;
 import com.zhoushibo.moonlight.databinding.ItemNewsBinding;
-import com.zhoushibo.moonlight.news.model.NewsBean;
+import com.zhoushibo.moonlight.news.model.NewContent;
 
 /**
  * @author shibo
@@ -39,12 +39,13 @@ public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapt
 
     @Override
     public void onBindViewHolder(MoonViewHolder holder, int position) {
-        final NewsBean obj = (NewsBean) getObjForPosition(position);
+        final NewContent obj = (NewContent) getObjForPosition(position);
         holder.bind(obj);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, NewsContentActivity.class).putExtra("Bean", obj));
+//                context.startActivity(new Intent(context, NewsContentActivity.class).putExtra("Bean", obj));
+                context.startActivity(new Intent(context, WeChatActivity.class));
             }
         });
     }
@@ -61,7 +62,7 @@ public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapt
             this.binding = binding;
         }
 
-        public void bind(NewsBean obj) {
+        public void bind(NewContent obj) {
             binding.setVariable(BR.obj, obj);
             binding.executePendingBindings();
             LogUtil.defaultLog("========binding======");

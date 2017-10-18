@@ -40,7 +40,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
-    compile 'com.zhoushibo:foundation:1.0.1'
+    compile 'com.zhoushibo:foundation:1.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     dependencies {
         compile 'com.jakewharton:butterknife:8.8.1'

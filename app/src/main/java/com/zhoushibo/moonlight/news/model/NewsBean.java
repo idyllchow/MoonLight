@@ -3,8 +3,6 @@ package com.zhoushibo.moonlight.news.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.geocentric.foundation.net.BaseBean;
-
 import java.util.List;
 
 /**
@@ -12,15 +10,13 @@ import java.util.List;
  * @description
  * @date 2017/10/10
  */
-public class NewsBean extends BaseBean implements Parcelable {
-    public String title;
-    public String title_en;
-    public String content;
-    public String content_en;
-    public List<String> author;
-    public String date;
-    public List<String> image_urls;
+public class NewsBean implements Parcelable {
+    public int index;
+    public int total_num;
+    public List<NewContent> news;
 
+    public NewsBean() {
+    }
 
     @Override
     public int describeContents() {
@@ -29,29 +25,18 @@ public class NewsBean extends BaseBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeString(this.title_en);
-        dest.writeString(this.content);
-        dest.writeString(this.content_en);
-        dest.writeStringList(this.author);
-        dest.writeString(this.date);
-        dest.writeStringList(this.image_urls);
-    }
-
-    public NewsBean() {
+        dest.writeInt(this.index);
+        dest.writeInt(this.total_num);
+        dest.writeTypedList(this.news);
     }
 
     protected NewsBean(Parcel in) {
-        this.title = in.readString();
-        this.title_en = in.readString();
-        this.content = in.readString();
-        this.content_en = in.readString();
-        this.author = in.createStringArrayList();
-        this.date = in.readString();
-        this.image_urls = in.createStringArrayList();
+        this.index = in.readInt();
+        this.total_num = in.readInt();
+        this.news = in.createTypedArrayList(NewContent.CREATOR);
     }
 
-    public static final Parcelable.Creator<NewsBean> CREATOR = new Parcelable.Creator<NewsBean>() {
+    public static final Creator<NewsBean> CREATOR = new Creator<NewsBean>() {
         @Override
         public NewsBean createFromParcel(Parcel source) {
             return new NewsBean(source);

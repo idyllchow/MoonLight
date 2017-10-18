@@ -44,7 +44,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, T extends ViewMode
     @BindView(R.id.fly_title_right)
     FrameLayout flyTitleRight;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    protected Toolbar toolbar;
     @BindView(R.id.toolbar_sub)
     View toolbarSub;
     @BindView(R.id.base_content)

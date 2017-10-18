@@ -4,10 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.geocentric.foundation.utils.LogUtil;
 import com.zhoushibo.moonlight.R;
 import com.zhoushibo.moonlight.databinding.ItemNewsBinding;
-import com.zhoushibo.moonlight.news.model.NewsBean;
+import com.zhoushibo.moonlight.news.model.NewContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +20,9 @@ public class NewsAdapter extends MoonBaseAdapter {
 
     private Context mContext;
 
-    private List<NewsBean> list = new ArrayList<>();
+    private List<NewContent> list = new ArrayList<>();
 
-    public NewsAdapter(Context context, List<NewsBean> list) {
+    public NewsAdapter(Context context, List<NewContent> list) {
         super(context, R.layout.item_news);
         this.mContext = context;
         this.list = list;
@@ -38,7 +37,6 @@ public class NewsAdapter extends MoonBaseAdapter {
     public MoonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemNewsBinding binding = ItemNewsBinding.inflate(layoutInflater, parent, false);
-        LogUtil.defaultLog("======MoonViewHolder onCreateViewHolder=====");
         return new MoonViewHolder(binding);
     }
 

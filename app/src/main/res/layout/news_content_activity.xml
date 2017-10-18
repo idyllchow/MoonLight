@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/tools">
+    >
 
     <data>
 
@@ -13,14 +12,19 @@
 
         <variable
             name="obj"
-            type="com.zhoushibo.moonlight.news.model.NewsBean" />
+            type="com.zhoushibo.moonlight.news.model.NewContent" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <ScrollView
+            android:id="@+id/scv_news_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -35,9 +39,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{obj.author.get(0) + `  `+ obj.date}"
+                    android:textColor="@color/gray_btn_bg_pressed_color"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
-                    android:text="@{obj.content}"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{obj.content_dual}"
                     android:textColor="@color/bg_black"
                     android:textSize="14sp" />
 
@@ -47,7 +61,7 @@
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/menu_labels_right"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:paddingRight="10dp"
@@ -59,26 +73,31 @@
             fab:menu_labels_position="right">
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
                 fab:fab_size="mini"
-                fab:fab_label="Menu item 1" />
+                fab:fab_label="中文" />
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
                 fab:fab_size="mini"
-                fab:fab_label="Menu item 2" />
+                fab:fab_label="中英" />
 
-            <com.github.clans.fab.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_edit"
-                fab:fab_size="mini"
-                fab:fab_label="@string/lorem_ipsum" />
+            <!--<com.github.clans.fab.FloatingActionButton-->
+                <!--android:id="@+id/fab3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/ic_edit"-->
+                <!--fab:fab_size="mini"-->
+                <!--fab:fab_label="@string/lorem_ipsum" />-->
 
         </com.github.clans.fab.FloatingActionMenu>
-    </FrameLayout>
+
+
+    </RelativeLayout>
 </layout>

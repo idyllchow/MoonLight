@@ -44,8 +44,9 @@ public class MoonTask {
                     }
                 }).build();
         return new Retrofit.Builder()
-                .baseUrl("https://cryptic-fortress-71485.herokuapp.com")
-                .addConverterFactory(new com.geocentric.foundation.net.FastJsonConvertFactory())
+//                .baseUrl("https://cryptic-fortress-71485.herokuapp.com")
+                .baseUrl(ApiConfig.BASE_URL)
+                .addConverterFactory(FastJsonConvertFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okClient)
                 .build().create(MoonApiService.class);

@@ -12,8 +12,6 @@ import com.zhoushibo.moonlight.R;
 import com.zhoushibo.moonlight.databinding.FragNewsBinding;
 import com.zhoushibo.moonlight.news.viewmodel.NewsModel;
 
-import rx.subscriptions.CompositeSubscription;
-
 
 /**
  * @author shibo
@@ -25,7 +23,7 @@ public class NewsFragment extends BaseFragment {
     private FragNewsBinding binding;
     private NewsModel newsModel;
     /** Hold active loading observable subscriptions, so that they can be unsubscribed from when the activity is destroyed */
-    private CompositeSubscription subscriptions;
+//    private CompositeSubscription subscriptions;
 
     @Nullable
     @Override
@@ -33,7 +31,7 @@ public class NewsFragment extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.frag_news, container, false);
         binding.setView(this);
         rootView = binding.getRoot();
-        subscriptions = new CompositeSubscription();
+//        subscriptions = new CompositeSubscription();
         newsModel = new NewsModel(getContext(), binding.newsList);
         loadData();
         newsModel.onCreate();
@@ -151,7 +149,7 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        subscriptions.unsubscribe();
+//        subscriptions.unsubscribe();
         newsModel.onDestroy();
     }
 }

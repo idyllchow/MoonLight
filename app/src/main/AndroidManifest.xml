@@ -27,6 +27,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/NormalStyle"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".news.view.WeChatActivity"
+            android:alwaysRetainTaskState="true"
+            android:clearTaskOnLaunch="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalStyle"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

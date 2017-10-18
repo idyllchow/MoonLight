@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.geocentric.foundation.utils.LogUtil;
 import com.zhoushibo.moonlight.data.MoonTask;
+import com.zhoushibo.moonlight.news.model.NewContent;
 import com.zhoushibo.moonlight.news.model.NewsBean;
 import com.zhoushibo.moonlight.news.view.MoonBaseAdapter;
 import com.zhoushibo.moonlight.news.view.NewsAdapter;
@@ -24,12 +25,12 @@ import io.reactivex.schedulers.Schedulers;
  * @description
  * @date 2017/9/28
  */
-public class NewsModel extends RecyclerViewViewModel implements Model{
+public class NewsModel extends RecyclerViewViewModel implements Model {
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
     private final Context mContext;
-    public List<NewsBean> list = new ArrayList<>();
-//    private BehaviorSubject<ArrayList<NewsBean>> newsSubject = BehaviorSubject.create(new ArrayList<NewsBean>());
+    public List<NewContent> list = new ArrayList<>();
+    //    private BehaviorSubject<ArrayList<NewsBean>> newsSubject = BehaviorSubject.create(new ArrayList<NewsBean>());
 //    private BehaviorSubject<Boolean> isLoadingSubject = BehaviorSubject.create(false);
     private NewsAdapter adapter;
     private RecyclerView mRecyclerView;
@@ -41,18 +42,19 @@ public class NewsModel extends RecyclerViewViewModel implements Model{
         mRecyclerView.setLayoutManager(createLayoutManager());
         mRecyclerView.setAdapter(adapter);
 
-        Observable<List<NewsBean>> call = MoonTask.getDefault(false).getNews(0, 100);
+        Observable<NewsBean> call = MoonTask.getDefault(false).getNews(0, 20);
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<NewsBean>>() {
+                .subscribe(new Consumer<NewsBean>() {
                     @Override
-                    public void accept(List<NewsBean> newsBeanList) throws Exception {
-                        list.addAll(newsBeanList);
+                    public void accept(NewsBean newsBean) throws Exception {
+                        list.addAll(newsBean.news);
 //                        adapter = new NewsAdapter(mContext, newsBeanList);
 //                        mRecyclerView.setLayoutManager(createLayoutManager());
 //                        mRecyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        LogUtil.defaultLog("newsBeanList size: " + newsBeanList.size() + "; newsModel=====title====" + newsBeanList.get(0).title + "; title en: " + newsBeanList.get(0).title_en);
+                        if (newsBean != null && newsBean.news != null && newsBean.news.size() > 0)
+                            LogUtil.defaultLog("newsBeanList size: " + newsBean.news.size() + "; newsModel=====title====" + newsBean.news.get(0).title + "; title en: " + newsBean.news.get(0).title_en);
                     }
                 });
     }
