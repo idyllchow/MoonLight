@@ -11,14 +11,18 @@ import java.util.List;
  * @date 2017/10/17
  */
 public class NewContent implements Parcelable {
-    public String title;
+    public String title_cn;
     public String title_en;
-    public String content;
+    public String content_cn;
     public String content_en;
     public String content_dual;
     public List<String> author;
-    public String date;
+    public String date_cn;
+    public String date_en;
     public List<String> image_urls;
+
+    public NewContent() {
+    }
 
     @Override
     public int describeContents() {
@@ -27,31 +31,30 @@ public class NewContent implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
+        dest.writeString(this.title_cn);
         dest.writeString(this.title_en);
-        dest.writeString(this.content);
+        dest.writeString(this.content_cn);
         dest.writeString(this.content_en);
         dest.writeString(this.content_dual);
         dest.writeStringList(this.author);
-        dest.writeString(this.date);
+        dest.writeString(this.date_cn);
+        dest.writeString(this.date_en);
         dest.writeStringList(this.image_urls);
     }
 
-    public NewContent() {
-    }
-
     protected NewContent(Parcel in) {
-        this.title = in.readString();
+        this.title_cn = in.readString();
         this.title_en = in.readString();
-        this.content = in.readString();
+        this.content_cn = in.readString();
         this.content_en = in.readString();
         this.content_dual = in.readString();
         this.author = in.createStringArrayList();
-        this.date = in.readString();
+        this.date_cn = in.readString();
+        this.date_en = in.readString();
         this.image_urls = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<NewContent> CREATOR = new Parcelable.Creator<NewContent>() {
+    public static final Creator<NewContent> CREATOR = new Creator<NewContent>() {
         @Override
         public NewContent createFromParcel(Parcel source) {
             return new NewContent(source);

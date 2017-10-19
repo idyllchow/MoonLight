@@ -5,7 +5,6 @@ import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.geocentric.foundation.utils.LogUtil;
 import com.zhoushibo.moonlight.data.MoonTask;
 import com.zhoushibo.moonlight.news.model.NewContent;
 import com.zhoushibo.moonlight.news.model.NewsBean;
@@ -35,6 +34,7 @@ public class NewsModel extends RecyclerViewViewModel implements Model {
     private NewsAdapter adapter;
     private RecyclerView mRecyclerView;
 
+
     public NewsModel(final Context mContext, final RecyclerView recyclerView) {
         this.mContext = mContext;
         this.mRecyclerView = recyclerView;
@@ -53,8 +53,6 @@ public class NewsModel extends RecyclerViewViewModel implements Model {
 //                        mRecyclerView.setLayoutManager(createLayoutManager());
 //                        mRecyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        if (newsBean != null && newsBean.news != null && newsBean.news.size() > 0)
-                            LogUtil.defaultLog("newsBeanList size: " + newsBean.news.size() + "; newsModel=====title====" + newsBean.news.get(0).title + "; title en: " + newsBean.news.get(0).title_en);
                     }
                 });
     }

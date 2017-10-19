@@ -47,5 +47,6 @@ dependencies {
         annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     }
     compile 'com.github.clans:fab:1.6.4'
+    compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
 }
 

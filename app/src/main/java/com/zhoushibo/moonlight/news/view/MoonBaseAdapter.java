@@ -44,8 +44,7 @@ public abstract class MoonBaseAdapter extends RecyclerView.Adapter<MoonBaseAdapt
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                context.startActivity(new Intent(context, NewsContentActivity.class).putExtra("Bean", obj));
-                context.startActivity(new Intent(context, WeChatActivity.class));
+                context.startActivity(new Intent(context, NewsContentActivity.class).putExtra("Bean", obj));
             }
         });
     }

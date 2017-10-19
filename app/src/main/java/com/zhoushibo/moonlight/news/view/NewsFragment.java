@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout;
 import com.zhoushibo.moonlight.BaseFragment;
 import com.zhoushibo.moonlight.R;
 import com.zhoushibo.moonlight.databinding.FragNewsBinding;
@@ -33,6 +36,22 @@ public class NewsFragment extends BaseFragment {
         rootView = binding.getRoot();
 //        subscriptions = new CompositeSubscription();
         newsModel = new NewsModel(getContext(), binding.newsList);
+        BezierLayout headerView = new BezierLayout(getActivity());
+        binding.refreshLayout.setHeaderView(headerView);
+        binding.refreshLayout.setPureScrollModeOn();
+        binding.refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                binding.refreshLayout.finishRefreshing();
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                binding.refreshLayout.finishLoadmore();
+            }
+        });
         loadData();
         newsModel.onCreate();
         return rootView;

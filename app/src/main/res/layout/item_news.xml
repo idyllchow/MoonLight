@@ -28,7 +28,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{obj.title}"
+            android:text="@{obj.title_cn}"
             android:textColor="@color/bg_black"
             android:textSize="17sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -45,7 +45,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{obj.content}"
+            android:text="@{obj.content_cn}"
             />
 
     </LinearLayout>

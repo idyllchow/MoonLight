@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <import type="android.view.View" />
@@ -15,11 +14,12 @@
             type="com.zhoushibo.moonlight.news.viewmodel.NewsModel" />
     </data>
 
-    <FrameLayout
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
         >
 
         <android.support.v7.widget.RecyclerView
@@ -72,6 +72,6 @@
 
         </com.github.clans.fab.FloatingActionMenu>
 
-    </FrameLayout>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 </layout>

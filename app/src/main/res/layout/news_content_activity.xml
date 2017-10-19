@@ -40,7 +40,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{obj.author.get(0) + `  `+ obj.date}"
+                    android:text="@{obj.author.get(0) + `  `+ obj.date_cn}"
                     android:textColor="@color/gray_btn_bg_pressed_color"
                     android:textSize="10sp" />
 

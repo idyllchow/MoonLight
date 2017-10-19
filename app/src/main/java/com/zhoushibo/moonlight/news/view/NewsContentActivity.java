@@ -38,6 +38,7 @@ public class NewsContentActivity extends BaseActivity implements ViewTreeObserve
     private NewContent obj;
     private String lang = "cn";
     private int scrollY;
+    private final int MIN_DISTANCE= 40;
 
     @Override
     protected void initActivity(@Nullable Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class NewsContentActivity extends BaseActivity implements ViewTreeObserve
 //        binding.setObj(obj);
         addMidView(R.layout.news_content_activity);
         obj = getIntent().getParcelableExtra("Bean");
-        setTitle(obj.title);
+        setTitle(obj.title_cn);
         NewsContentModel newsContentModel = new NewsContentModel(this, ((NewsContentActivityBinding) dataBinding).scvNewsContent);
         ((NewsContentActivityBinding) dataBinding).scvNewsContent.getViewTreeObserver().addOnScrollChangedListener(this);
         ((NewsContentActivityBinding) dataBinding).setObj(obj);
@@ -62,7 +63,7 @@ public class NewsContentActivity extends BaseActivity implements ViewTreeObserve
                     setTitle(obj.title_en);
                     lang = "en";
                 } else {
-                    setTitle(obj.title);
+                    setTitle(obj.title_cn);
                     lang = "cn";
                 }
                 break;
@@ -79,9 +80,26 @@ public class NewsContentActivity extends BaseActivity implements ViewTreeObserve
 
     @Override
     public void onScrollChanged() {
-        scrollY = ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY();
-        LogUtil.defaultLog("scrollY: " + scrollY);
-        if (scrollY > 0) {
+
+        if (scrollY > ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY() && (scrollY - ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY()) > MIN_DISTANCE) {
+            toolbar.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = this.getWindow();
+                View decorView = getWindow().getDecorView();
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+                //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                //设置状态栏颜色
+                window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+
+                //导航栏
+//                int option = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//                decorView.setSystemUiVisibility(option);
+            }
+        } else if (scrollY > ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY() && (scrollY - ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY()) > MIN_DISTANCE) {
             toolbar.setVisibility(View.GONE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 View decorView = getWindow().getDecorView();
@@ -107,24 +125,9 @@ public class NewsContentActivity extends BaseActivity implements ViewTreeObserve
 //                decorView.setSystemUiVisibility(option);
 
             }
-        } else {
-            toolbar.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = this.getWindow();
-                View decorView = getWindow().getDecorView();
-                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
-                //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                //设置状态栏颜色
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-
-                //导航栏
-//                int option = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-//                decorView.setSystemUiVisibility(option);
-            }
         }
+
+        scrollY = ((NewsContentActivityBinding) dataBinding).scvNewsContent.getScrollY();
+        LogUtil.defaultLog("scrollY: " + scrollY);
     }
 }
