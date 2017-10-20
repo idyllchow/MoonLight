@@ -124,6 +124,11 @@ public abstract class BaseActivity<B extends ViewDataBinding, T extends ViewMode
         toolbarSub.setVisibility(View.GONE);
     }
 
+    public void setToolbarVisible() {
+        toolbar.setVisibility(View.VISIBLE);
+        toolbarSub.setVisibility(View.VISIBLE);
+    }
+
     protected void setTitle(String title) {
         tvTitle.setText(title);
     }

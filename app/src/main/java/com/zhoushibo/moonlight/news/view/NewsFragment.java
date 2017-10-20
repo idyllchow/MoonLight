@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhoushibo.moonlight.BaseFragment;
 import com.zhoushibo.moonlight.R;
 import com.zhoushibo.moonlight.databinding.FragNewsBinding;
@@ -36,20 +36,18 @@ public class NewsFragment extends BaseFragment {
         rootView = binding.getRoot();
 //        subscriptions = new CompositeSubscription();
         newsModel = new NewsModel(getContext(), binding.newsList);
-        BezierLayout headerView = new BezierLayout(getActivity());
-        binding.refreshLayout.setHeaderView(headerView);
-        binding.refreshLayout.setPureScrollModeOn();
-        binding.refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+        binding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                super.onRefresh(refreshLayout);
-                binding.refreshLayout.finishRefreshing();
+            public void onRefresh(RefreshLayout refreshlayout) {
+                newsModel.getNews(true);
+                refreshlayout.finishRefresh(2000);
             }
-
+        });
+        binding.refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                binding.refreshLayout.finishLoadmore();
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                newsModel.getNews(false);
+                refreshlayout.finishLoadmore(2000);
             }
         });
         loadData();
